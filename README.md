@@ -5,9 +5,10 @@
 ### 📑 File structure
 ```
 📂 Main directory
-├── 📁 files
+├── 📁pages
 │   ├── __init__.py
 │   ├── base_page.py
+│   ├── locators.py
 │   └── main_page.py
 ├── README.md 
 ├── conftest.py
