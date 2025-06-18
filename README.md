@@ -5,7 +5,7 @@
 ### 📑 File structure
 ```
 📂 Main directory
-├── 📁pages
+├── 📁 pages
 │   ├── __init__.py
 │   ├── base_page.py
 │   ├── locators.py
