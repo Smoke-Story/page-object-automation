@@ -1,5 +1,4 @@
 from selenium.common import NoSuchElementException
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -8,7 +7,7 @@ class BasePage:
     def __init__(self, driver, imp_wait=3):
         self.driver = driver
         self.driver.implicitly_wait(imp_wait)
-        self.link = "http://selenium1py.pythonanywhere.com/"
+        self.link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209?promo=midsummer "
 
     def open_main_page(self):
         self.driver.get(self.link)

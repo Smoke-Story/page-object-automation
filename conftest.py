@@ -28,14 +28,14 @@ def driver(request):
     firefox_options.set_preference("intl.accept_languages", language)
 
     if browser_name == "chrome":
-        print("\nstart chrome browser for test..")
+        print("\nstart chrome driver for test..")
         driver = webdriver.Chrome(options=chrome_options)
     elif browser_name == "firefox":
-        print("\nstart firefox browser for test..")
+        print("\nstart firefox driver for test..")
         driver = webdriver.Firefox(options=firefox_options)
     else:
         raise pytest.UsageError("--browser_name should be chrome or firefox")
 
     yield driver
-    print("\nquit browser..")
+    print("\nquit driver..")
     driver.quit()
