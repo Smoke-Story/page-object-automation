@@ -5,7 +5,7 @@
 ### 📑 File structure
 ```
 📂 Main directory
-│   📁 files
+├── 📁 files
 │   ├── __init__.py
 │   ├── base_page.py
 │   └── main_page.py
