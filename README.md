@@ -3,19 +3,19 @@
 <hr>
 
 ### 📑 File structure
-```
-📂 Main directory
-├── 📁 pages
-│    ├── __init__.py
-│    ├── base_page.py
-│    ├── locators.py 
-│    ├── login_page.py
-│    ├── main_page.py
-│    └── product_page.py
+<pre>
+📂 <a href="/"><b>main</b></a>
+├── 📁 <a href="/main/pages"><b>pages</b></a>
+│   ├──  <a href="/pages/__init__.py">__init__.py</a>
+│   ├── <a href="/pages/base_page.py">base_page.py</a>
+│   ├── <a href="/pages/locators.py">locators.py</a>
+│   ├── <a href="/pages/login_page.py">login_page.py</a>
+│   ├── <a href="/pages/main_page.py">main_page.py</a>
+│   └── <a href="/pages/product_page.py">product_page.py</a>
 │
-├── README.md 
-├── conftest.py
-├── requirements.txt
-├── test_main_page.py
-└── test_product_page.py
-```
+├── <a href="/README.md">README.md </a>
+├── <a href="/conftest.py">conftest.py</a>
+├── <a href="/requirements.txt">requirements.txt</a>
+├── <a href="/test_main_page.py">test_main_page.py</a>
+└── <a href="/test_product_page.py">test_product_page.py</a>
+</pre>
