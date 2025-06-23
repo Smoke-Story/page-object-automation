@@ -16,7 +16,7 @@ def pytest_addoption(parser):
                      help="Choose language: ar, ca, cs, da, en, de, en-gb, el, es, fi, fr,"
                           "it, ko, nl, pl, pt, pt-br, ro, ru, sk, uk, zh-cn")
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def driver(request):
     browser_name = request.config.getoption("browser_name") # параметр для cmd: задать браузер
     language = request.config.getoption("language")         # параметр для cmd: задать язык
@@ -39,3 +39,6 @@ def driver(request):
     yield driver
     print("\nquit driver..")
     driver.quit()
+
+if __name__ == "__main__":
+    pytest.main()
