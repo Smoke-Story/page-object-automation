@@ -1,20 +1,10 @@
 import pytest
-from pages.product_page import ProductPage
-from pages.main_page import MainPage
-
-
-@pytest.mark.parametrize("parameter", [
-    n if n != 7 else pytest.param(7, marks=pytest.mark.xfail) for n in range(0, 10)]) # run's 10 tests
-def test_guest_can_add_product_to_basket(driver, parameter):
-    link = (f"http://selenium1py.pythonanywhere.com/"
-            f"catalogue/coders-at-work_207/?promo=offer{parameter}")
-    product_page = ProductPage(driver)                 # присвоили класс + фикстуру
-    product_page.open_product_page(link)               # открыли страницу с продуктом
-    product_page.check_parameter_in_link()             # проверили параметр в ссылке
-    product_page.add_product_to_basket_button()        # добавили продукт в корзину
-    product_page.solve_quiz_and_get_code()             # решаем уравнение, вставляем код -> ок
-    product_page.should_be_product_title_in_message()  # сверили сообщение об успешном добавлении
-    product_page.should_be_product_price_in_message()  # сверили цену корзины с ценой товара
+from faker import Faker
+from .pages.product_page import ProductPage
+from .pages.main_page import MainPage
+from .pages.base_page import BasePage
+from .pages.basket_page import BasketPage
+from .pages.login_page import LoginPage
 
 @pytest.mark.xfail(reason="fixing this bug right now")
 def test_guest_cant_see_success_message_after_adding_product_to_basket(driver):
@@ -22,12 +12,6 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(driver):
     product_page = ProductPage(driver)
     product_page.open_product_page(link)
     product_page.add_product_to_basket_button()
-    product_page.should_not_be_success_message()
-
-def test_guest_cant_see_success_message(driver):
-    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
-    product_page = ProductPage(driver)
-    product_page.open_product_page(link)
     product_page.should_not_be_success_message()
 
 @pytest.mark.xfail(reason="fixing this bug right now")
@@ -52,3 +36,45 @@ def test_guest_can_go_to_login_page_from_product_page(driver):
     main_page = MainPage(driver)
     product_page.open_product_page(link)
     main_page.open_main_page()
+
+def test_guest_cant_see_product_in_basket_opened_from_product_page(driver):
+    link = "https://selenium1py.pythonanywhere.com/ru/catalogue/metasploit_193/"
+    product_page = ProductPage(driver)
+    product_page.open_product_page(link)
+    base_page = BasePage(driver)
+    base_page.go_to_basket_page()
+    basket_page = BasketPage(driver)
+    basket_page.should_not_be_products_in_the_basket()
+    basket_page.should_be_message_that_basket_is_empty()
+
+
+class TestUserAddToBasketFromProductPage:
+
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, driver):
+        base_page = BasePage(driver)
+        base_page.open_main_page()
+        base_page.go_to_login_page()
+        login_page = LoginPage(driver)
+        login_page.should_be_register_form()
+        fake = Faker()  # класс для генерации фейковых данных
+        login_page.register_new_user(fake.email(), fake.password())
+        base_page.should_be_authorized_user()
+
+
+    def test_user_cant_see_success_message(self, driver):
+        link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+        product_page = ProductPage(driver)
+        product_page.open_product_page(link)
+        product_page.should_not_be_success_message()
+
+    def test_user_can_add_product_to_basket(self, driver):
+        link = ("http://selenium1py.pythonanywhere.com/"
+                "catalogue/coders-at-work_207/?promo=offer0")
+        product_page = ProductPage(driver)
+        product_page.open_product_page(link)
+        product_page.check_parameter_in_link()
+        product_page.add_product_to_basket_button()
+        product_page.solve_quiz_and_get_code()
+        product_page.should_be_product_title_in_message()
+        product_page.should_be_product_price_in_message()
