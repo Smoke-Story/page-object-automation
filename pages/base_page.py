@@ -29,7 +29,7 @@ class BasePage:
         return self.driver.find_element(*Locators.LANGUAGE_ELEMENT).get_attribute("lang")
 
     def should_be_authorized_user(self):
-        self.is_element_present(*Locators.USER_ICON), "User is not authorized."
+        assert self.find_element_ex_wait(*Locators.USER_ICON), "User is not authorized."
 
     # Вспомогательные методы
 
@@ -48,7 +48,7 @@ class BasePage:
     def is_not_element_present(self, method, selector, timeout=4):
         try:
             WebDriverWait(self.driver, timeout).until(
-                EC.presence_of_element_located((method, selector)), f"Element {selector} is present")
+                EC.presence_of_element_located((method, selector)))
         except TimeoutException:
             return True
 
@@ -57,7 +57,7 @@ class BasePage:
     def is_disappeared(self, method, selector, timeout=4):
         try:
             WebDriverWait(self.driver, timeout, 1).until_not(
-                EC.presence_of_element_located((method, selector)), f"Element {selector} is not disappeared")
+                EC.presence_of_element_located((method, selector)))
         except TimeoutException:
             return False
 
