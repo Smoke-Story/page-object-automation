@@ -40,6 +40,7 @@ class TestUserAddToBasketFromProductPage:
         product_page.should_be_product_title_in_message()
         product_page.should_be_product_price_in_message()
 
+
 @pytest.mark.need_review
 @pytest.mark.parametrize("part_link",
     [_ if _ != 7 else pytest.param(7, marks=pytest.mark.xfail) for _ in range(0, 10)])

@@ -31,7 +31,7 @@ class ProductPage(BasePage):
         basket_price_message = self.find_element_ex_wait(*Locators.MESSAGE_BASKET_PRICE).text
         assert product_price in basket_price_message, "Total basket price is not correct"
 
-    """Negative tests"""
+    # Negative tests
 
     def should_not_be_success_message(self):
         success_message = self.is_not_element_present(*Locators.SUCCESS_MESSAGE)
