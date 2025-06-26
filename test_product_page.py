@@ -1,10 +1,10 @@
 import pytest
 import random
-from .pages.product_page import ProductPage
-from .pages.main_page import MainPage
-from .pages.base_page import BasePage
-from .pages.basket_page import BasketPage
-from .pages.login_page import LoginPage
+from pages.product_page import ProductPage
+from pages.main_page import MainPage
+from pages.base_page import BasePage
+from pages.basket_page import BasketPage
+from pages.login_page import LoginPage
 
 
 class TestUserAddToBasketFromProductPage:
@@ -39,7 +39,6 @@ class TestUserAddToBasketFromProductPage:
         product_page.solve_quiz_and_get_code()
         product_page.should_be_product_title_in_message()
         product_page.should_be_product_price_in_message()
-
 
 @pytest.mark.need_review
 @pytest.mark.parametrize("part_link",
