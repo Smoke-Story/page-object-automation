@@ -1,3 +1,4 @@
+from time import sleep
 from .base_page import BasePage
 from .locators import ProductPageLocators as Locators
 
@@ -18,13 +19,15 @@ class ProductPage(BasePage):
         self.solve_quiz_and_get_code()
 
     def should_be_product_title_in_message(self):
-        product_title = self.find_element_ex_wait(*Locators.PRODUCT_TITLE).text
+        sleep(1)
+        product_title = self.driver.find_element(*Locators.PRODUCT_TITLE).text
         successful_adding_message = self.find_element_ex_wait(*Locators.MESSAGE_SUCCESSFUL_ADDING).text
         assert product_title == successful_adding_message, \
             "Message of successful adding product is not correct"
 
     def should_be_product_price_in_message(self):
-        product_price = self.find_element_ex_wait(*Locators.PRODUCT_PRICE).text
+        sleep(1)
+        product_price = self.driver.find_element(*Locators.PRODUCT_PRICE).text
         basket_price_message = self.find_element_ex_wait(*Locators.MESSAGE_BASKET_PRICE).text
         assert product_price in basket_price_message, "Total basket price is not correct"
 

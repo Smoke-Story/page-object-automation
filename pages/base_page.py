@@ -49,7 +49,7 @@ class BasePage:
     def is_not_element_present(self, method, selector, timeout=4):
         try:
             WebDriverWait(self.driver, timeout).until(
-                EC.presence_of_element_located((method, selector)))
+                EC.presence_of_element_located((method, selector)), f"Element {selector} is present")
         except TimeoutException:
             return True
 
@@ -58,12 +58,11 @@ class BasePage:
     def is_disappeared(self, method, selector, timeout=4):
         try:
             WebDriverWait(self.driver, timeout, 1).until_not(
-                EC.presence_of_element_located((method, selector)))
+                EC.presence_of_element_located((method, selector)), f"Element {selector} is not disappeared")
         except TimeoutException:
             return False
 
         return True
-
 
     # Метод решающий уравнение и отвечающий на alert
     def solve_quiz_and_get_code(self):
@@ -72,10 +71,3 @@ class BasePage:
         answer = str(math.log(abs((12 * math.sin(float(x))))))
         alert.send_keys(answer)
         alert.accept()
-        try:
-            alert = self.driver.switch_to.alert
-            alert_text = alert.text
-            print(f"Your code: {alert_text}")
-            alert.accept()
-        except NoAlertPresentException:
-            print("No second alert presented")
